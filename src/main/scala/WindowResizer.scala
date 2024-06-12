@@ -1,4 +1,4 @@
-package hello
+package front
 
 import scalafx.Includes._
 import scalafx.scene.Scene

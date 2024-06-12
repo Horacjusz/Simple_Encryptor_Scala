@@ -1,4 +1,4 @@
-package hello
+package front
 
 import scalafx.Includes._
 import scalafx.application.JFXApp3
@@ -11,23 +11,28 @@ import scalafx.scene.text.Font
 import scalafx.scene.paint.Color
 import java.io.File
 
-object ScalaEncryptorExtreme extends JFXApp3 {
+import scala.io.Source
+import scala.util.{Try, Success, Failure, Random}
+import java.nio.file.{Files, Paths, Path, StandardOpenOption}
+import java.nio.charset.StandardCharsets
+import java.io.IOException
+
+def saveFile(absolutePath: String, filename: String, content: String): Unit = {
+    val fullPath = Paths.get(absolutePath, filename)
+
+    if (!Files.exists(fullPath.getParent)) {
+        Files.createDirectories(fullPath.getParent)
+    }
+
+    Files.write(fullPath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
+}
+
+
+object SimpleEncryptorScala extends JFXApp3 {
 
   var selectedFile: File = _
   var xOffset = 0.0
   var yOffset = 0.0
-
-  def encryptorMock(path: String, key: String): Boolean = {
-    println(key)
-    // Mock encryption logic
-    true
-  }
-
-  def decryptorMock(path: String, key: String): Boolean = {
-    println(key)
-    // Mock decryption logic
-    false
-  }
 
   override def start(): Unit = {
 
@@ -76,8 +81,8 @@ object ScalaEncryptorExtreme extends JFXApp3 {
           returnLabel.text = "Select file first!"
         } else {
           val key = if (keyField.text.value.isEmpty) "0" else keyField.text.value
-          if (encryptorMock(selectedFile.getAbsolutePath, key)) {
-            returnLabel.text = selectedFile.getName + " encrypted successfully"
+          if ((encryption.run(selectedFile.getAbsolutePath, key, true))) {
+            returnLabel.text = selectedFile.getAbsolutePath + " encrypted successfully"
           } else {
             returnLabel.text = selectedFile.getName + " encrypt failure"
           }
@@ -95,7 +100,7 @@ object ScalaEncryptorExtreme extends JFXApp3 {
           returnLabel.text = "Select file first!"
         } else {
           val key = if (keyField.text.value.isEmpty) "0" else keyField.text.value
-          if (decryptorMock(selectedFile.getAbsolutePath, key)) {
+          if (encryption.run(selectedFile.getAbsolutePath, key, false)) {
             returnLabel.text = selectedFile.getName + " decrypted successfully"
           } else {
             returnLabel.text = selectedFile.getName + " decrypt failure"
