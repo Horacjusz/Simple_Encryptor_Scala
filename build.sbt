@@ -1,12 +1,18 @@
-val scala3Version = "3.4.1"
+// Name of the project
+name := "ScalaFX Hello World"
 
-lazy val root = project
-  .in(file("."))
-  .settings(
-    name := "Simple_Encryptor_Scala",
-    version := "0.1.0-SNAPSHOT",
+// Project version
+version := "21.0.0-R32"
 
-    scalaVersion := scala3Version,
+// Version of Scala used by the project
+scalaVersion := "3.3.1"
 
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
-  )
+// Add dependency on ScalaFX library
+libraryDependencies += "org.scalafx" %% "scalafx" % "21.0.0-R32"
+
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")
+
+mainClass := Some("hello.ScalaEncryptorExtreme")
+
+// Fork a new JVM for 'run' and 'test:run', to avoid JavaFX double initialization problems
+fork := true
