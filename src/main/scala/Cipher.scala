@@ -9,7 +9,6 @@ import java.util.logging.{Logger, Level}
 
 val logger: Logger = Logger.getLogger("EncryptionLogger")
 val ASCIISIZE = 65536
-val PRIME = 2147483647
 
 def getNumber(input: Char): Int = {
     val value = input.toInt
@@ -134,9 +133,11 @@ class Permutation(seed: Long = 0) {
 }
 
 def stringToSeed(input: String): Long = {
-    input.zipWithIndex.foldLeft(0L) { case (acc, (char, idx)) =>
-        acc * PRIME + (getNumber(char) + idx)
+    var output: Long = 0
+    input.foreach { char =>
+        output += getNumber(char)
     }
+    return output
 }
 
 def encrypt(fileContent: String, dirname: String, filename: String, extension: String, permutation: Char => Char, shuffler: String => String): String = {
@@ -198,16 +199,16 @@ def run(input: String, key: String, cipher: Boolean): String = {
 }
 
 @main def main(): Unit = {
-    // val seed = "iubhf"
+    val seed = "iubhf"
 
-    // val filename = "Test.scala"
+    val filename = "Cipher2.scala"
 
-    // logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + filename, key = seed, cipher = true))
+    logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + filename, key = seed, cipher = true))
 
-    // logger.log(Level.INFO, "=================")
+    logger.log(Level.INFO, "=================")
 
-    // logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + (filename.split("\\."))(0) + ".senc", key = seed, cipher = false))
+    logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + (filename.split("\\."))(0) + ".ssenc", key = seed, cipher = false))
 
-    logger.log(Level.INFO, "On standby of sorts")
+    // logger.log(Level.INFO, "On standby of sorts")
 
 }
