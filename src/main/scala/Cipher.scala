@@ -1,4 +1,4 @@
-package Encryption
+package encryption
 
 import scala.io.Source
 import scala.util.{Try, Success, Failure, Random}
@@ -201,20 +201,5 @@ def run(input: String, key: String, cipher: Boolean): String = {
     }
 
     return "Cannot decrypt files that are not .ssenc"
-
-}
-
-@main def main(): Unit = {
-    val seed = "iubhf"
-
-    val filename = "Cipher2.scala"
-
-    logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + filename, key = seed, cipher = true))
-
-    logger.log(Level.INFO, "=================")
-
-    logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + (filename.split("\\."))(0) + ".ssenc", key = seed, cipher = false))
-
-    // logger.log(Level.INFO, "On standby of sorts")
 
 }
