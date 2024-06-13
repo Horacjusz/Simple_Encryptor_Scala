@@ -1,4 +1,4 @@
-package Encryption
+package encryption
 
 import scala.io.Source
 import scala.util.{Try, Success, Failure, Random}
@@ -197,7 +197,7 @@ def run(input: String, key: String, cipher: Boolean): String = {
 
 }
 
-@main def main(): Unit = {
+//@main def main(): Unit = {
     // val seed = "iubhf"
 
     // val filename = "Test.scala"
@@ -208,6 +208,6 @@ def run(input: String, key: String, cipher: Boolean): String = {
 
     // logger.log(Level.INFO, run("/home/pprus/Main/Studia/SEM_4/Scala/simple_encryptor_scala/src/main/scala/" + (filename.split("\\."))(0) + ".senc", key = seed, cipher = false))
 
-    logger.log(Level.INFO, "On standby of sorts")
+    //logger.log(Level.INFO, "On standby of sorts")
 
-}
+//}

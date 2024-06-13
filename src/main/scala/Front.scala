@@ -81,11 +81,7 @@ object SimpleEncryptorScala extends JFXApp3 {
           returnLabel.text = "Select file first!"
         } else {
           val key = if (keyField.text.value.isEmpty) "0" else keyField.text.value
-          if ((encryption.run(selectedFile.getAbsolutePath, key, true))) {
-            returnLabel.text = selectedFile.getAbsolutePath + " encrypted successfully"
-          } else {
-            returnLabel.text = selectedFile.getName + " encrypt failure"
-          }
+            returnLabel.text = encryption.run(selectedFile.getAbsolutePath, key, true)
         }
       }
       onMouseEntered = _ => style = "-fx-background-color: #005f73; -fx-text-fill: white; -fx-padding: 10 20 10 20; -fx-border-radius: 5; -fx-background-radius: 5;"
@@ -100,11 +96,8 @@ object SimpleEncryptorScala extends JFXApp3 {
           returnLabel.text = "Select file first!"
         } else {
           val key = if (keyField.text.value.isEmpty) "0" else keyField.text.value
-          if (encryption.run(selectedFile.getAbsolutePath, key, false)) {
-            returnLabel.text = selectedFile.getName + " decrypted successfully"
-          } else {
-            returnLabel.text = selectedFile.getName + " decrypt failure"
-          }
+          
+          returnLabel.text = encryption.run(selectedFile.getAbsolutePath, key, false) 
         }
       }
       onMouseEntered = _ => style = "-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-padding: 10 20 10 20; -fx-border-radius: 5; -fx-background-radius: 5;"
