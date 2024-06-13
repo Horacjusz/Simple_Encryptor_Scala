@@ -17,16 +17,6 @@ import java.nio.file.{Files, Paths, Path, StandardOpenOption}
 import java.nio.charset.StandardCharsets
 import java.io.IOException
 
-def saveFile(absolutePath: String, filename: String, content: String): Unit = {
-    val fullPath = Paths.get(absolutePath, filename)
-
-    if (!Files.exists(fullPath.getParent)) {
-        Files.createDirectories(fullPath.getParent)
-    }
-
-    Files.write(fullPath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
-}
-
 
 object SimpleEncryptorScala extends JFXApp3 {
 
