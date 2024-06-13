@@ -8,7 +8,7 @@ import java.io.IOException
 import java.util.logging.{Logger, Level}
 
 val logger: Logger = Logger.getLogger("EncryptionLogger")
-val ASCIISIZE = 65536
+val ASCIISIZE = 128
 
 def getNumber(input: Char): Int = {
     val value = input.toInt
@@ -47,6 +47,7 @@ def readFile(filePath: String): String = {
         case Failure(exception) =>
             logger.log(Level.SEVERE, s"Error reading file: ${exception.getMessage}")
             s"Error reading file: ${exception.getMessage}"
+            throw new IOException(s"Error reading file: ${exception.getMessage}")
     }
 }
 
@@ -177,7 +178,12 @@ def run(input: String, key: String, cipher: Boolean): String = {
     logger.log(Level.INFO, s"Extension: $extension")
     logger.log(Level.INFO, s"Separator: $separator")
 
-    val content = readFile(input)
+    var content = ""
+    try {
+        content = readFile(input)
+    } catch {
+        case e: IOException => return content
+    }
     logger.log(Level.INFO, "File Content:")
     logger.log(Level.INFO, content)
     logger.log(Level.INFO, s"${content.length}")
